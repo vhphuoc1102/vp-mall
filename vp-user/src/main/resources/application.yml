@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: vp-user
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      username: phuocvh
+      password: phuocvh
