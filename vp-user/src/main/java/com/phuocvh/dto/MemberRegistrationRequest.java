@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MemberRegistrationByPhoneRequest {
-    String phone;
+public class MemberRegistrationRequest {
+    String email;
     String password;
 }

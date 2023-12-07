@@ -19,4 +19,20 @@ public class CommonResult<T> {
     public static <T> CommonResult<T> success(T data, String message) {
         return new CommonResult<T>(ResultCode.SUCCESS.getCode(), message, data);
     }
+
+    public static <T> CommonResult<T> failed(IResultCode errorCode) {
+        return new CommonResult<T>(errorCode.getCode(), errorCode.getMessage(), null);
+    }
+
+    public static <T> CommonResult<T> failed(IResultCode errorCode, String message) {
+        return new CommonResult<T>(errorCode.getCode(), message, null);
+    }
+
+    public static <T> CommonResult<T> failed(String message) {
+        return new CommonResult<T>(ResultCode.FAILED.getCode(), message, null);
+    }
+
+    public static <T> CommonResult<T> failed() {
+        return failed(ResultCode.FAILED);
+    }
 }

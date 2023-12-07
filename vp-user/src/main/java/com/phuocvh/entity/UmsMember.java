@@ -1,14 +1,16 @@
 package com.phuocvh.entity;
 
 
+import com.google.common.hash.Hashing;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -16,7 +18,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "ums_member")
+@Table(
+        name = "ums_member",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "email"})}
+)
 @AllArgsConstructor
 public class UmsMember {
     @Id
@@ -29,33 +34,34 @@ public class UmsMember {
     private String password;
     @NotBlank
     private String nickname;
-    @NotBlank
     private String phone;
-    @ColumnDefault("1")
-    private Integer status;
+    private String email;
+    private Integer status = 1;
     private String icon;
-    @NotBlank
     private String gender;
-    @NotBlank
     private String birthday;
     @CreationTimestamp
-    private Instant createdTime;
+    private Instant createdDate;
     @UpdateTimestamp
-    private Instant updatedTime;
+    private Instant lastModifiedDate;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "member_level_id", referencedColumnName = "id")
     private UmsMemberLevel umsMemberLevel;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_receive_address_id", referencedColumnName = "id")
-    private UmsMemberRecipientAddress umsMemberRecipientAddress;
+    @OneToMany(mappedBy = "umsMember")
+    private List<UmsMemberRecipientAddress> umsMemberRecipientAddress;
 
     @PrePersist
-    public void prePersist() {
-        if (this.nickname.isBlank())
-            this.nickname = "@" + this.username;
-        else
-            this.nickname = "@" + this.nickname;
+    private void prePersist() {
+        this.username = Hashing.sha256()
+                .hashString(email, StandardCharsets.UTF_8)
+                .toString();
+        this.nickname = this.username;
+        this.status = 1;
+    }
+
+    @PreUpdate
+    private void preUpdate() {
     }
 }

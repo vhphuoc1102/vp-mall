@@ -1,10 +1,10 @@
 package com.phuocvh.service;
 
-import com.phuocvh.dto.MemberRegistrationByPhoneRequest;
+import com.phuocvh.dto.MemberRegistrationRequest;
 import com.phuocvh.entity.UmsMember;
 
 public interface UmsMemberService {
-    UmsMember registerMemberByPhone(MemberRegistrationByPhoneRequest memberRegistrationByPhoneRequest);
+    UmsMember registerMember(MemberRegistrationRequest memberRegistrationRequest);
 
     void updateMember(UmsMember umsMember);
 }

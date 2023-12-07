@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/vp-admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/vp-admin/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vp-authorization/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vp-authorization/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vp-common/src/main/java" charset="UTF-8" />
@@ -11,8 +13,12 @@
     <file url="file://$PROJECT_DIR$/vp-config/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vp-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vp-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/vp-item/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/vp-item/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vp-order/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vp-order/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/vp-product/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/vp-product/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vp-registry/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vp-registry/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vp-user/src/main/java" charset="UTF-8" />

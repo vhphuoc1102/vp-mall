@@ -22,9 +22,9 @@ public class UmsMemberLoginLog {
     private String city;
     private String province;
     @CreationTimestamp
-    private Instant createdTime;
+    private Instant createdDate;
     @UpdateTimestamp
-    private Instant updatedTime;
+    private Instant lastModifiedDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "id")

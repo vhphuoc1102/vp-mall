@@ -1,9 +1,9 @@
 package com.phuocvh.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,17 +19,24 @@ public class UmsMemberLevel {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
-    @ColumnDefault("0")
+    @NotBlank
+    private String name;
     private Integer growthPoint;
-    @ColumnDefault("0")
     private Double freeFreightPoint;
-    @ColumnDefault("0")
     private Integer commentGrowthPoint;
     @CreationTimestamp
-    private Instant createdTime;
+    private Instant createdDate;
     @UpdateTimestamp
-    private Instant updatedTime;
+    private Instant lastModifiedDate;
 
-//    @OneToOne(mappedBy = "umsMemberLevel")
-//    private UmsMember umsMember;
+    @PrePersist
+    private void prePersist() {
+        this.growthPoint = 0;
+        this.freeFreightPoint = 0D;
+        this.commentGrowthPoint = 0;
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+    }
 }

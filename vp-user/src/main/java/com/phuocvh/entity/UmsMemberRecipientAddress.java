@@ -1,14 +1,13 @@
 package com.phuocvh.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Getter
@@ -23,7 +22,6 @@ public class UmsMemberRecipientAddress {
     private String name;
     @NotNull
     private String phone;
-    @ColumnDefault("0")
     private Integer status;
     private String postCode;
     @NotNull
@@ -34,4 +32,16 @@ public class UmsMemberRecipientAddress {
     private String region;
     @NotNull
     private String detailAddress;
+    @CreationTimestamp
+    private Instant createdDate;
+    @UpdateTimestamp
+    private Instant lastModifiedDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UmsMember umsMember;
+
+    @PrePersist
+    private void prePersist() {
+        this.status = 0;
+    }
 }
