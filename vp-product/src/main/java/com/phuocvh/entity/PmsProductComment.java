@@ -13,28 +13,28 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "pms_product_brand")
+@Table(name = "pms_product_comment")
 @AllArgsConstructor
-public class PmsProductBrand {
+public class PmsProductComment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
-    private String name;
-    private String firstLetter;
-    private Integer factoryStatus;
+    private String memberNickName;
+    private String productName;
+    private Double star;
     private Integer showStatus;
-    private Integer productCount;
-    private Integer productCommentCount;
-    private String logo;
-    private String bigPic;
-    private String brandStory;
+    private Integer readCount;
+    private Integer replayCount;
+    private String content;
+    private String pics;
+    private String memberIcons;
 
     @CreationTimestamp
     private Instant createdDate;
     @UpdateTimestamp
     private Instant lastModifiedDate;
 
-    @OneToOne(mappedBy = "pmsProductBrand")
+    @ManyToOne(fetch = FetchType.LAZY)
     private PmsProduct pmsProduct;
 }

@@ -3,7 +3,7 @@ package com.phuocvh.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.time.Instant;
 import java.util.UUID;
 
 @Builder
@@ -11,17 +11,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "pms_product_service")
+@Table(name = "pms_product_price_promotion")
 @AllArgsConstructor
-public class PmsProductService {
+public class PmsProductPricePromotion {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
-    private String name;
-    private String icons;
-    private String description;
+    private String productCode;
+    private Double promotionPrice;
 
-    @ManyToMany(mappedBy = "pmsProductServices")
-    private List<PmsProduct> pmsProducts;
+    private Instant promotionStart;
+    private Instant promotionEnd;
 }

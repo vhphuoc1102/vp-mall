@@ -11,17 +11,18 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "pms_product_service")
+@Table(name = "pms_product_album")
 @AllArgsConstructor
-public class PmsProductService {
+public class PmsProductAlbum {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
     private String name;
-    private String icons;
+    private String coverPic;
+    private String picCount;
     private String description;
 
-    @ManyToMany(mappedBy = "pmsProductServices")
-    private List<PmsProduct> pmsProducts;
+    @OneToMany(mappedBy = "pmsProductAlbum")
+    private List<PmsProductAlbumPicture> pmsProductAlbumPictures;
 }

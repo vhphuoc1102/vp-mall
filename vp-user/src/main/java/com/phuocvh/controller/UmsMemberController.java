@@ -19,7 +19,6 @@ public class UmsMemberController {
         try {
             return CommonResult.success(umsMember);
         } catch (Exception e) {
-            System.out.println(e);
             return CommonResult.failed();
         }
     }

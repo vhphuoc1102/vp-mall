@@ -1,40 +1,37 @@
 package com.phuocvh.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.UUID;
 
-@Builder
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "pms_product_brand")
+@Table(name = "pms_product_attribute_association")
 @AllArgsConstructor
-public class PmsProductBrand {
+public class PmsProductAttributeAssociation {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
-    private String name;
-    private String firstLetter;
-    private Integer factoryStatus;
-    private Integer showStatus;
-    private Integer productCount;
-    private Integer productCommentCount;
-    private String logo;
-    private String bigPic;
-    private String brandStory;
+    private String value;
 
     @CreationTimestamp
     private Instant createdDate;
     @UpdateTimestamp
     private Instant lastModifiedDate;
 
-    @OneToOne(mappedBy = "pmsProductBrand")
+    @ManyToOne(fetch = FetchType.LAZY)
     private PmsProduct pmsProduct;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private PmsProductAttribute pmsProductAttribute;
+
 }

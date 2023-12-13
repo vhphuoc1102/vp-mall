@@ -1,38 +1,45 @@
 package com.phuocvh.entity;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
+@Builder
+@Entity
+@NoArgsConstructor
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
+@Table(name = "pms_product_category")
 @AllArgsConstructor
-@Document("pms_product_category")
 public class PmsProductCategory {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", nullable = false)
     private UUID id;
-    @NotBlank
     private String name;
     private Integer level;
     private Integer productCount;
     private Integer navStatus;
     private Integer showStatus;
     private String icon;
-    private List<String> keywords;
+    private String keywords;
     private String description;
 
-    @DBRef
-    @Field("product_attribute_ids")
-    private List<PmsProductAttribute> productAttributes;
-    @DBRef
-    @Field("parent_category_id")
+    @CreationTimestamp
+    private Instant createdDate;
+    @UpdateTimestamp
+    private Instant lastModifiedDate;
+
+    @OneToOne(fetch = FetchType.LAZY)
     private PmsProductCategory parentCategory;
+    @ManyToMany(mappedBy = "pmsProductCategory")
+    private List<PmsProduct> pmsProducts;
+    @ManyToMany(mappedBy = "pmsProductCategories")
+    @JoinTable(name = "product_category_attribute_association")
+    private List<PmsProductCategory> pmsProductCategories;
 }

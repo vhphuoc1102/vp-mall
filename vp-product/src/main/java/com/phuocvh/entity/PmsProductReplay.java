@@ -3,7 +3,6 @@ package com.phuocvh.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -11,17 +10,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "pms_product_service")
+@Table(name = "pms_product_replay")
 @AllArgsConstructor
-public class PmsProductService {
+public class PmsProductReplay {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
-    private String name;
-    private String icons;
-    private String description;
-
-    @ManyToMany(mappedBy = "pmsProductServices")
-    private List<PmsProduct> pmsProducts;
+    private String memberNickName;
+    private String memberIcon;
+    private String content;
+    private String type;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private PmsProductComment pmsProductComment;
 }

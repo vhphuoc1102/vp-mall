@@ -1,54 +1,64 @@
 package com.phuocvh.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
+@Builder
+@Entity
+@NoArgsConstructor
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
+@Table(name = "pms_product")
 @AllArgsConstructor
-@Document("pms_product")
 public class PmsProduct {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", nullable = false)
     private UUID id;
     private String name;
     private String title;
     private String subtitle;
     private String pic;
+    private String keywords;
+    private String note;
 
     private Integer deleteStatus;
     private Integer publishStatus;
     private Integer newStatus;
+    private Integer recommendStatus;
     private Integer verifyStatus;
     private Integer previewStatus;
 
-    private Double price;
-    private Double promotionPrice;
-    private Double originalPrice;
-    private Double weight;
-    private List<String> keywords;
-    private String description;
-    private String note;
+    private Integer saleType;
 
-    @CreatedDate
-    private Instant createDate;
-    @LastModifiedDate
-    private Instant updateDate;
+    private String detailHTML;
+    private String detailDesc;
 
-    @DBRef
-    @Field("brand_id")
+    @CreationTimestamp
+    private Instant createdDate;
+    @UpdateTimestamp
+    private Instant lastModifiedDate;
+
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private PmsProductBrand pmsProductBrand;
-    @DBRef
-    @Field("service_ids")
+    @ManyToMany
+    @JoinTable(name = "product_category_association")
+    private List<PmsProductCategory> pmsProductCategory;
+    @OneToMany(mappedBy = "pmsProduct", fetch = FetchType.LAZY)
+    private List<PmsProductAttributeAssociation> pmsProductAttributeAssociations;
+    @OneToMany(mappedBy = "pmsProduct")
+    private List<PmsProductComment> pmsProductComments;
+    @ManyToMany(mappedBy = "pmsProducts")
+    @JoinTable(name = "pms_product_service_association")
     private List<PmsProductService> pmsProductServices;
+    @OneToMany(mappedBy = "pmsProduct")
+    private PmsProductFreight pmsProductFreight;
+    @OneToMany(mappedBy = "pmsProduct")
+    private List<PmsProductPrice> pmsProductPrice;
 }
