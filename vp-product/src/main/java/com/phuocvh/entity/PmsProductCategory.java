@@ -39,7 +39,7 @@ public class PmsProductCategory {
     private PmsProductCategory parentCategory;
     @ManyToMany(mappedBy = "pmsProductCategory")
     private List<PmsProduct> pmsProducts;
-    @ManyToMany(mappedBy = "pmsProductCategories")
+    @ManyToMany
     @JoinTable(name = "product_category_attribute_association")
-    private List<PmsProductCategory> pmsProductCategories;
+    private List<PmsProductAttribute> pmsProductAttributes;
 }

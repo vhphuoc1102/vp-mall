@@ -33,5 +33,4 @@ public class PmsProductAttributeAssociation {
     private PmsProduct pmsProduct;
     @ManyToOne(fetch = FetchType.LAZY)
     private PmsProductAttribute pmsProductAttribute;
-
 }

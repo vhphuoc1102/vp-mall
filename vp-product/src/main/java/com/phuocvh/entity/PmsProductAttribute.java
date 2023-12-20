@@ -35,8 +35,9 @@ public class PmsProductAttribute {
     @UpdateTimestamp
     private Instant lastModifiedDate;
 
-    @ManyToMany(mappedBy = "pmsProductCategories")
-    private List<PmsProductCategory> pmsProductCategory;
+    @ManyToMany(mappedBy = "pmsProductAttributes")
+    private List<PmsProductCategory> pmsProductCategories;
+
     @OneToMany(mappedBy = "pmsProductAttribute", fetch = FetchType.LAZY)
     private List<PmsProductAttributeAssociation> pmsProductAttributeAssociations;
 }

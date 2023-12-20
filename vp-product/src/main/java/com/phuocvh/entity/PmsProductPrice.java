@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -32,5 +33,5 @@ public class PmsProductPrice {
     @ManyToOne(fetch = FetchType.LAZY)
     private PmsProduct pmsProduct;
     @OneToMany(mappedBy = "pmsProductPrice")
-    private PmsProductLadder pmsProductLadder;
+    private List<PmsProductLadder> pmsProductLadder;
 }

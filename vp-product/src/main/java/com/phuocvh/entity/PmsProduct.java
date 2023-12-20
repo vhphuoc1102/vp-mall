@@ -54,11 +54,11 @@ public class PmsProduct {
     private List<PmsProductAttributeAssociation> pmsProductAttributeAssociations;
     @OneToMany(mappedBy = "pmsProduct")
     private List<PmsProductComment> pmsProductComments;
-    @ManyToMany(mappedBy = "pmsProducts")
+    @ManyToMany
     @JoinTable(name = "pms_product_service_association")
     private List<PmsProductService> pmsProductServices;
     @OneToMany(mappedBy = "pmsProduct")
-    private PmsProductFreight pmsProductFreight;
+    private List<PmsProductFreight> pmsProductFreight;
     @OneToMany(mappedBy = "pmsProduct")
     private List<PmsProductPrice> pmsProductPrice;
 }

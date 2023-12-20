@@ -1,0 +1,38 @@
+## CONFIG SERVER ##
+#spring:
+#  application:
+#    name: vp-user
+#  config:
+#    import: optional:configserver:http://localhost:8888
+#  cloud:
+#    config:
+#      username: phuocvh
+#      password: phuocvh
+
+server:
+  port: 8802
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vp_mall
+    username: phuocvh
+    password: phuocvh
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+# DEBUB MODE #
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#      type:
+#        descriptor:
+#          sql:
+#            BasicBinder: TRACE
+
+
