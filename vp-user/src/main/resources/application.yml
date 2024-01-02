@@ -9,21 +9,33 @@
 #      username: phuocvh
 #      password: phuocvh
 
-server:
-  port: 8801
+# Port #
+#server:
+#  port: 8801
 
 spring:
+  application:
+    name: VP_USER
   datasource:
     url: jdbc:postgresql://localhost:5432/vp_mall
     username: phuocvh
     password: phuocvh
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
     show-sql: true
+server:
+  port: 0
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
 # DEBUB MODE #
 #logging:
 #  level:
