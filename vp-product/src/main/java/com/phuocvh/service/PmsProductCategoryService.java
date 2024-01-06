@@ -12,4 +12,6 @@ public interface PmsProductCategoryService {
     void deleteCategory(PmsProductCategory pmsProductCategory);
 
     List<PmsProductCategory> retrieveCategories();
+
+    PmsProductCategory getCategory(String id);
 }

@@ -1,21 +1,26 @@
 package com.phuocvh.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Builder
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
 @Table(name = "pms_product")
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class PmsProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -45,20 +50,32 @@ public class PmsProduct {
     @UpdateTimestamp
     private Instant lastModifiedDate;
 
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
     private PmsProductBrand pmsProductBrand;
-    @ManyToMany
-    @JoinTable(name = "product_category_association")
-    private List<PmsProductCategory> pmsProductCategory;
-    @OneToMany(mappedBy = "pmsProduct", fetch = FetchType.LAZY)
-    private List<PmsProductAttributeAssociation> pmsProductAttributeAssociations;
+    @ManyToMany(mappedBy = "pmsProducts", fetch = FetchType.LAZY)
+    private List<PmsProductCategory> pmsProductCategory = new ArrayList<>();
     @OneToMany(mappedBy = "pmsProduct")
-    private List<PmsProductComment> pmsProductComments;
-    @ManyToMany
-    @JoinTable(name = "pms_product_service_association")
-    private List<PmsProductService> pmsProductServices;
+    private List<PmsProductAttributeAssociation> pmsProductAttributeAssociations = new ArrayList<>();
     @OneToMany(mappedBy = "pmsProduct")
-    private List<PmsProductFreight> pmsProductFreight;
+    private List<PmsProductComment> pmsProductComments = new ArrayList<>();
+    @ManyToMany(mappedBy = "pmsProducts")
+    private List<PmsProductService> pmsProductServices = new ArrayList<>();
     @OneToMany(mappedBy = "pmsProduct")
-    private List<PmsProductPrice> pmsProductPrice;
+    private List<PmsProductFreight> pmsProductFreight = new ArrayList<>();
+    @OneToMany(mappedBy = "pmsProduct")
+    private List<PmsProductPrice> pmsProductPrice = new ArrayList<>();
+
+    public PmsProduct() {
+        super();
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.deleteStatus = 0;
+        this.publishStatus = 0;
+        this.recommendStatus = 0;
+        this.verifyStatus = 0;
+        this.previewStatus = 0;
+    }
 }

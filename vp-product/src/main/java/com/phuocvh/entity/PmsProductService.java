@@ -22,6 +22,7 @@ public class PmsProductService {
     private String icons;
     private String description;
 
-    @ManyToMany(mappedBy = "pmsProductServices")
+    @ManyToMany
+    @JoinTable(name = "pms_product_service_association")
     private List<PmsProduct> pmsProducts;
 }

@@ -13,13 +13,15 @@ server:
   port: 8802
 
 spring:
+  application:
+    name: VP-PRODUCT
   datasource:
     url: jdbc:postgresql://localhost:5432/vp_mall
     username: phuocvh
     password: phuocvh
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

@@ -1,20 +1,24 @@
 package com.phuocvh.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
-@Builder
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
 @Table(name = "pms_product_brand")
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class PmsProductBrand {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -35,6 +39,11 @@ public class PmsProductBrand {
     @UpdateTimestamp
     private Instant lastModifiedDate;
 
-    @OneToOne(mappedBy = "pmsProductBrand")
-    private PmsProduct pmsProduct;
+    //    @JsonManagedReference
+    @OneToMany(mappedBy = "pmsProductBrand")
+    private List<PmsProduct> pmsProducts;
+
+    public PmsProductBrand() {
+        super();
+    }
 }

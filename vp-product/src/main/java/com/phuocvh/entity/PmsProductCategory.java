@@ -37,7 +37,9 @@ public class PmsProductCategory {
 
     @OneToOne(fetch = FetchType.LAZY)
     private PmsProductCategory parentCategory;
-    @ManyToMany(mappedBy = "pmsProductCategory")
+
+    @ManyToMany
+    @JoinTable(name = "pms_product_category_association")
     private List<PmsProduct> pmsProducts;
     @ManyToMany
     @JoinTable(name = "product_category_attribute_association")
