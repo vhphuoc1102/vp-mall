@@ -1,7 +1,6 @@
 package com.phuocvh.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +17,8 @@ import java.util.UUID;
 @Setter
 @Table(name = "pms_product_brand")
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class PmsProductBrand {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -39,7 +39,11 @@ public class PmsProductBrand {
     @UpdateTimestamp
     private Instant lastModifiedDate;
 
-    //    @JsonManagedReference
+    //    @JsonBackReference
+//    @JsonManagedReference
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    @JsonIgnore
+    @JsonIgnoreProperties({"pmsProductBrand", "hibernateLazyInitializer"})
     @OneToMany(mappedBy = "pmsProductBrand")
     private List<PmsProduct> pmsProducts;
 

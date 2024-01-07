@@ -5,13 +5,13 @@ import com.phuocvh.entity.PmsProductCategory;
 import java.util.List;
 
 public interface PmsProductCategoryService {
-    PmsProductCategory registerCategory(PmsProductCategory pmsProductCategory);
+    PmsProductCategory create(PmsProductCategory pmsProductCategory);
 
-    void updateCategory(PmsProductCategory pmsProductCategory);
+    int update(String id, PmsProductCategory pmsProductCategory);
 
-    void deleteCategory(PmsProductCategory pmsProductCategory);
+    void delete(PmsProductCategory pmsProductCategory);
 
-    List<PmsProductCategory> retrieveCategories();
+    List<PmsProductCategory> listAll();
 
-    PmsProductCategory getCategory(String id);
+    PmsProductCategory get(String id);
 }

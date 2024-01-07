@@ -26,6 +26,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+#  jackson:
+#    serialization:
+#      FAIL_ON_EMPTY_BEANS: false
 # DEBUB MODE #
 #logging:
 #  level:
@@ -36,5 +39,4 @@ spring:
 #        descriptor:
 #          sql:
 #            BasicBinder: TRACE
-
 

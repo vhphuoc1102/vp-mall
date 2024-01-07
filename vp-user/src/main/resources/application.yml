@@ -15,14 +15,19 @@
 
 spring:
   application:
-    name: VP_USER
+    name: VP-USER
   datasource:
     url: jdbc:postgresql://localhost:5432/vp_mall
     username: phuocvh
     password: phuocvh
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      #    validate: validate the schema, makes no changes to the database.
+      #    update: update the schema.
+      #    create: creates the schema, destroying previous data.
+      #    create-drop: drop the schema at the end of the session
+      #    none: is all other cases.
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

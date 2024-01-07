@@ -2,8 +2,7 @@ package com.phuocvh.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,8 +11,11 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "ums_member_level")
+@NoArgsConstructor
+@AllArgsConstructor
 public class UmsMemberLevel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
