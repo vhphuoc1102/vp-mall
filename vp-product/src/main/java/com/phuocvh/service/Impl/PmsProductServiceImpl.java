@@ -1,7 +1,7 @@
 package com.phuocvh.service.Impl;
 
-import com.phuocvh.dto.PmsProductQueryParam;
-import com.phuocvh.dto.PmsProductRequest;
+import com.phuocvh.dto.pmsProductDto.PmsProductQueryParam;
+import com.phuocvh.dto.pmsProductDto.PmsProductRequest;
 import com.phuocvh.entity.PmsProduct;
 import com.phuocvh.entity.PmsProductBrand;
 import com.phuocvh.repository.*;
@@ -66,13 +66,11 @@ public class PmsProductServiceImpl implements PmsProductService {
         Optional<PmsProduct> pmsProductOptional = pmsProductRepository.findById(UUID.fromString(id));
         if (pmsProductOptional.isPresent()) {
             PmsProduct pmsProduct = pmsProductOptional.get();
-
             ProductUtil.findAndInsert(pmsProduct, pmsProductBrandRepository, PmsProduct.class.getMethod("setPmsProductBrand", PmsProductBrand.class), pmsProductRequest.getPmsProductBrand());
             ProductUtil.findAndInsert(pmsProduct, pmsProductCategoryRepository, PmsProduct.class.getMethod("setPmsProductCategory", List.class), pmsProductRequest.getPmsProductCategory());
             ProductUtil.findAndInsert(pmsProduct, pmsProductServiceRepository, PmsProduct.class.getMethod("setPmsProductServices", List.class), pmsProductRequest.getPmsProductServices());
             ProductUtil.findAndInsert(pmsProduct, pmsProductFreightRepository, PmsProduct.class.getMethod("setPmsProductFreight", List.class), pmsProductRequest.getPmsProductFreight());
             ProductUtil.findAndInsert(pmsProduct, pmsProductPriceRepository, PmsProduct.class.getMethod("setPmsProductPrice", List.class), pmsProductRequest.getPmsProductPrice());
-
             convertToEntity(pmsProductRequest, pmsProduct);
             pmsProductRepository.save(pmsProduct);
             result = 1;
@@ -133,6 +131,7 @@ public class PmsProductServiceImpl implements PmsProductService {
             TypeMap<PmsProduct, PmsProduct> propertyMapper = this.modelMapper.createTypeMap(PmsProduct.class, PmsProduct.class);
             Provider<PmsProduct> provider = p -> pmsProduct;
             propertyMapper.setProvider(provider);
+            this.modelMapper.getConfiguration().setSkipNullEnabled(true);
         }
         PmsProduct newProduct = convertToEntity(pmsProductRequest);
         modelMapper.map(newProduct, PmsProduct.class);
@@ -141,13 +140,13 @@ public class PmsProductServiceImpl implements PmsProductService {
     private PmsProduct convertToEntity(PmsProductRequest pmsProductRequest) {
         if (modelMapper.getTypeMap(PmsProductRequest.class, PmsProduct.class) == null) {
             TypeMap<PmsProductRequest, PmsProduct> propertyMapper = this.modelMapper.createTypeMap(PmsProductRequest.class, PmsProduct.class);
-
-            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductBrand, PmsProduct::setPmsProductBrand));
-            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductCategory, PmsProduct::setPmsProductCategory));
-            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductServices, PmsProduct::setPmsProductServices));
-            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductPrice, PmsProduct::setPmsProductPrice));
-            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductFreight, PmsProduct::setPmsProductFreight));
-            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductAttributes, PmsProduct::setPmsProductAttributeAssociations));
+            this.modelMapper.getConfiguration().setSkipNullEnabled(true);
+//            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductBrand, PmsProduct::setPmsProductBrand));
+//            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductCategory, PmsProduct::setPmsProductCategory));
+//            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductServices, PmsProduct::setPmsProductServices));
+//            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductPrice, PmsProduct::setPmsProductPrice));
+//            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductFreight, PmsProduct::setPmsProductFreight));
+//            propertyMapper.addMappings(mapper -> mapper.skip(PmsProductRequest::getPmsProductAttributes, PmsProduct::setPmsProductAttributeAssociations));
         }
 
         return modelMapper.map(pmsProductRequest, PmsProduct.class);

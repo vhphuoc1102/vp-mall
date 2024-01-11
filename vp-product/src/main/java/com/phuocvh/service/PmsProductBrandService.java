@@ -1,6 +1,6 @@
 package com.phuocvh.service;
 
-import com.phuocvh.dto.PmsProductBrandRequest;
+import com.phuocvh.dto.pmsProductBrandDto.PmsProductBrandRequest;
 import com.phuocvh.entity.PmsProductBrand;
 
 import java.util.List;

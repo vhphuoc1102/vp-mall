@@ -1,6 +1,6 @@
 package com.phuocvh.service.Impl;
 
-import com.phuocvh.dto.PmsProductBrandRequest;
+import com.phuocvh.dto.pmsProductBrandDto.PmsProductBrandRequest;
 import com.phuocvh.entity.PmsProduct;
 import com.phuocvh.entity.PmsProductBrand;
 import com.phuocvh.repository.PmsProductBrandRepository;
@@ -62,6 +62,7 @@ public class PmsProductBrandServiceImpl implements PmsProductBrandService {
             TypeMap<PmsProductBrand, PmsProductBrand> propertyMapper = this.modelMapper.createTypeMap(PmsProductBrand.class, PmsProductBrand.class);
             Provider<PmsProductBrand> provider = p -> pmsProductBrand;
             propertyMapper.setProvider(provider);
+            this.modelMapper.getConfiguration().setSkipNullEnabled(true);
         }
         PmsProductBrand newPmsProductBrand = convertToEntity(pmsProductBrandRequest);
         modelMapper.map(newPmsProductBrand, PmsProduct.class);
@@ -70,6 +71,7 @@ public class PmsProductBrandServiceImpl implements PmsProductBrandService {
     private PmsProductBrand convertToEntity(PmsProductBrandRequest pmsProductBrandRequest) {
         if (modelMapper.getTypeMap(PmsProductBrandRequest.class, PmsProductBrand.class) == null) {
             TypeMap<PmsProductBrandRequest, PmsProductBrand> propertyMapper = this.modelMapper.createTypeMap(PmsProductBrandRequest.class, PmsProductBrand.class);
+            this.modelMapper.getConfiguration().setSkipNullEnabled(true);
         }
 
         return modelMapper.map(pmsProductBrandRequest, PmsProductBrand.class);

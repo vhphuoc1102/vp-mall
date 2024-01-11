@@ -22,6 +22,7 @@
         <module>vp-admin</module>
         <module>vp-product</module>
         <module>vp-rabbitmq</module>
+        <module>vp-portal</module>
     </modules>
 
     <properties>
@@ -163,6 +164,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,6 +1,7 @@
 package com.phuocvh.util;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -14,7 +15,7 @@ public class ProductUtil {
         if (mapIds.isEmpty()) return;
         try {
             List<M> list = mapRepository.findAllById(mapIds);
-            if (!list.isEmpty()) setMapMethod.invoke(sourceEntity, list);
+            if (!CollectionUtils.isEmpty(list)) setMapMethod.invoke(sourceEntity, list);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

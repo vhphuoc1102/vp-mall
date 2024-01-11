@@ -1,7 +1,7 @@
 package com.phuocvh.service;
 
-import com.phuocvh.dto.PmsProductQueryParam;
-import com.phuocvh.dto.PmsProductRequest;
+import com.phuocvh.dto.pmsProductDto.PmsProductQueryParam;
+import com.phuocvh.dto.pmsProductDto.PmsProductRequest;
 import com.phuocvh.entity.PmsProduct;
 
 import java.lang.reflect.InvocationTargetException;

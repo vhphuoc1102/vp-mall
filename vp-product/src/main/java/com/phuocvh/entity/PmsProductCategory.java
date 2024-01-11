@@ -1,5 +1,6 @@
 package com.phuocvh.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -35,13 +36,19 @@ public class PmsProductCategory {
     @UpdateTimestamp
     private Instant lastModifiedDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"childrenCategory"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "pms_product_category_parent_children")
     private PmsProductCategory parentCategory;
+
+    @JsonIgnoreProperties({"parentCategory"})
+    @OneToMany(mappedBy = "parentCategory")
+    private List<PmsProductCategory> childrenCategories;
 
     @ManyToMany
     @JoinTable(name = "pms_product_category_association")
     private List<PmsProduct> pmsProducts;
     @ManyToMany
-    @JoinTable(name = "product_category_attribute_association")
+    @JoinTable(name = "pms_product_category_attribute_association")
     private List<PmsProductAttribute> pmsProductAttributes;
 }

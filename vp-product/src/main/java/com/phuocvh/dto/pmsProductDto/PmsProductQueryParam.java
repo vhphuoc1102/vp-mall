@@ -1,4 +1,4 @@
-package com.phuocvh.dto;
+package com.phuocvh.dto.pmsProductDto;
 
 import lombok.Getter;
 import lombok.Setter;
