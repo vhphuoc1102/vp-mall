@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static jakarta.persistence.CascadeType.*;
+
 @Entity
 @Getter
 @Setter
 @Table(name = "pms_product")
 @AllArgsConstructor
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class PmsProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,6 +31,11 @@ public class PmsProduct {
     private String pic;
     private String keywords;
     private String note;
+    private String productSn; // serial number
+
+    private Integer reviewNumber;
+    private Double rating;
+    private Integer soldNumber;
 
     private Integer deleteStatus;
     private Integer publishStatus;
@@ -48,9 +53,7 @@ public class PmsProduct {
     private Instant createdDate;
     @UpdateTimestamp
     private Instant lastModifiedDate;
-    //    @JsonManagedReference
-//    @JsonBackReference
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
     @JsonIgnoreProperties({"pmsProducts", "hibernateLazyInitializer"})
     @ManyToOne(fetch = FetchType.LAZY)
     private PmsProductBrand pmsProductBrand;
@@ -64,8 +67,14 @@ public class PmsProduct {
     private List<PmsProductService> pmsProductServices = new ArrayList<>();
     @OneToMany(mappedBy = "pmsProduct")
     private List<PmsProductFreight> pmsProductFreight = new ArrayList<>();
+
+    @JsonIgnoreProperties("pmsProduct")
     @OneToMany(mappedBy = "pmsProduct")
     private List<PmsProductPrice> pmsProductPrice = new ArrayList<>();
+
+    @JsonIgnoreProperties("pmsProduct")
+    @OneToMany(mappedBy = "pmsProduct", cascade = {REMOVE, PERSIST, REFRESH}, orphanRemoval = true)
+    private List<PmsProductFlashSale> pmsProductFlashSales;
 
     public PmsProduct() {
         super();
@@ -78,5 +87,8 @@ public class PmsProduct {
         this.recommendStatus = 0;
         this.verifyStatus = 0;
         this.previewStatus = 0;
+        this.rating = 0.0;
+        this.reviewNumber = 0;
+        this.soldNumber = 0;
     }
 }

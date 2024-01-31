@@ -1,12 +1,12 @@
 package com.phuocvh.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -29,9 +29,7 @@ public class PmsProductPrice {
     private Instant createdDate;
     @UpdateTimestamp
     private Instant lastModifiedDate;
-
+    @JsonIgnoreProperties("pmsProductPrice")
     @ManyToOne(fetch = FetchType.LAZY)
     private PmsProduct pmsProduct;
-    @OneToMany(mappedBy = "pmsProductPrice")
-    private List<PmsProductLadder> pmsProductLadder;
 }

@@ -1,6 +1,6 @@
 package com.phuocvh.controller;
 
-import com.phuocvh.dto.pmsProductBrandDto.PmsProductBrandRequest;
+import com.phuocvh.dto.PmsProductBrandRequest;
 import com.phuocvh.entity.PmsProductBrand;
 import com.phuocvh.service.PmsProductBrandService;
 import org.springframework.beans.factory.annotation.Autowired;

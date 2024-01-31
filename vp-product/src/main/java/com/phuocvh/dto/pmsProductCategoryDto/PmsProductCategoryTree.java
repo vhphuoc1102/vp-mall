@@ -3,7 +3,6 @@ package com.phuocvh.dto.pmsProductCategoryDto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,5 +11,5 @@ import java.util.UUID;
 public class PmsProductCategoryTree {
     private UUID id;
     private String name;
-    private List<PmsProductCategoryTree> pmsProductCategoryTrees = new ArrayList<>();
+    private List<PmsProductCategoryTree> items;
 }

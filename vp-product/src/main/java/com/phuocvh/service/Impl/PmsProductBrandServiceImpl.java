@@ -1,6 +1,6 @@
 package com.phuocvh.service.Impl;
 
-import com.phuocvh.dto.pmsProductBrandDto.PmsProductBrandRequest;
+import com.phuocvh.dto.PmsProductBrandRequest;
 import com.phuocvh.entity.PmsProduct;
 import com.phuocvh.entity.PmsProductBrand;
 import com.phuocvh.repository.PmsProductBrandRepository;

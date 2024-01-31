@@ -10,6 +10,7 @@ import com.phuocvh.util.ProductUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.Provider;
@@ -78,7 +79,14 @@ public class PmsProductCategoryServiceImpl implements PmsProductCategoryService 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<PmsProductCategory> criteria = builder.createQuery(PmsProductCategory.class);
         Root<PmsProductCategory> root = criteria.from(PmsProductCategory.class);
-        criteria.select(root).where(builder.isNull(root.get("parentCategory")));
+
+        // Predicates
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(builder.isNull(root.get("parentCategory")));
+        predicates.add(builder.equal(root.get("status"), 1));
+
+        criteria.select(root).where(predicates.toArray(new Predicate[]{}));
+
         List<PmsProductCategory> pmsProductCategories = entityManager.createQuery(criteria).getResultList();
 
         modelMapper.getConfiguration()
@@ -95,7 +103,7 @@ public class PmsProductCategoryServiceImpl implements PmsProductCategoryService 
             List<PmsProductCategoryTree> pmsProductCategoryTreeChildren;
             if (!pmsProductCategory.getChildrenCategories().isEmpty()) {
                 pmsProductCategoryTreeChildren = convertToCategoryTree(pmsProductCategory.getChildrenCategories());
-                pmsProductCategoryTree.setPmsProductCategoryTrees(pmsProductCategoryTreeChildren);
+                pmsProductCategoryTree.setItems(pmsProductCategoryTreeChildren);
             }
             pmsProductCategoryTrees.add(pmsProductCategoryTree);
         }

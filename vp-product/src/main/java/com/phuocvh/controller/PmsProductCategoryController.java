@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v0/category")
+@CrossOrigin("http://localhost:3000")
 public class PmsProductCategoryController {
     @Autowired
     private PmsProductCategoryService pmsProductCategoryService;
@@ -75,7 +76,6 @@ public class PmsProductCategoryController {
     @GetMapping("/listTree")
     public ResponseEntity<?> getCategoryTree() {
         try {
-            System.out.println("DEBUG 2");
             List<PmsProductCategoryTree> pmsProductCategoryTrees = pmsProductCategoryService.listTree();
             return ResponseEntity.ok(pmsProductCategoryTrees);
         } catch (Exception e) {

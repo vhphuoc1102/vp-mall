@@ -35,12 +35,56 @@ services:
       - "15672:15672"
     networks:
       - spring
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - minio
+    volumes:
+      - ./storage:/data
+    environment:
+      MINIO_ROOT_USER: phuocvu511
+      MINIO_ROOT_PASSWORD: phuocvu511
+    command: server --console-address ":9001" /data
+  postgres-keycloak:
+    image: postgres
+    container_name: postgres-keycloak
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+  keycloak:
+    image: quay.io/keycloak/keycloak:legacy
+    container_name: keycloak
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres-keycloak
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+    ports:
+      - 8082:8080
+    depends_on:
+      - postgres-keycloak
 networks:
   postgres:
     driver: bridge
   spring:
     driver: bridge
-
+  minio:
+    driver: bridge
 volumes:
   postgres:
   pgadmin:
+  postgres_data:
+    driver: local

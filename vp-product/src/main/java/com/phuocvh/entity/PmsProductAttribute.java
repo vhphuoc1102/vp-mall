@@ -26,8 +26,6 @@ public class PmsProductAttribute {
     private Integer inputType;
     private Integer inputList;
     private Integer filterType;
-    private Integer searchType;
-    private Integer handAddStatus;
     private Integer type;
 
     @CreationTimestamp

@@ -3,13 +3,14 @@ package com.phuocvh.service;
 import com.phuocvh.dto.pmsProductDto.PmsProductQueryParam;
 import com.phuocvh.dto.pmsProductDto.PmsProductRequest;
 import com.phuocvh.entity.PmsProduct;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.List;
 
 public interface PmsProductService {
-    void create(PmsProductRequest pmsProductRequest) throws ParseException, NoSuchMethodException, InvocationTargetException, IllegalAccessException;
+    void create(PmsProductRequest pmsProductRequest, MultipartFile picture) throws ParseException, NoSuchMethodException, InvocationTargetException, IllegalAccessException;
 
     PmsProduct get(String id);
 
@@ -20,4 +21,5 @@ public interface PmsProductService {
     List<PmsProduct> listAll();
 
     List<PmsProduct> list(PmsProductQueryParam pmsProductQueryParam, Integer pageSize, Integer pageNum);
+
 }

@@ -2,6 +2,7 @@ package com.phuocvh.dto.pmsProductDto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,10 +13,9 @@ public class PmsProductRequest {
     private String name;
     private String title;
     private String subtitle;
-    private String pic;
     private String keywords;
     private String note;
-
+    private String productSn;
     private Integer saleType;
 
     private String detailHTML;
@@ -29,4 +29,7 @@ public class PmsProductRequest {
     private List<UUID> pmsProductServices;
     private List<UUID> pmsProductFreight;
     private List<UUID> pmsProductPrice;
+
+
+    private MultipartFile picture;
 }

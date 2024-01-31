@@ -5,8 +5,10 @@ import com.phuocvh.dto.pmsProductDto.PmsProductRequest;
 import com.phuocvh.entity.PmsProduct;
 import com.phuocvh.service.PmsProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,10 +19,11 @@ public class PmsProductController {
     private PmsProductService pmsProductService;
 
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody PmsProductRequest pmsProductRequest) {
+    @PostMapping(value = "/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> register(@RequestPart("productRequest") PmsProductRequest pmsProductRequest, @RequestPart("picture") MultipartFile picture) {
+        System.out.println(pmsProductRequest);
         try {
-            pmsProductService.create(pmsProductRequest);
+            pmsProductService.create(pmsProductRequest, picture);
             return ResponseEntity.ok("Create successfully");
         } catch (Exception e) {
             System.out.println(e.getMessage());

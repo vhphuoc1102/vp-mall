@@ -5,6 +5,7 @@ import com.phuocvh.dto.pmsProductDto.PmsProductRequest;
 import com.phuocvh.entity.PmsProduct;
 import com.phuocvh.entity.PmsProductBrand;
 import com.phuocvh.repository.*;
+import com.phuocvh.service.MinioService;
 import com.phuocvh.service.PmsProductService;
 import com.phuocvh.util.ProductUtil;
 import jakarta.persistence.EntityManager;
@@ -18,6 +19,7 @@ import org.modelmapper.Provider;
 import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -46,16 +48,23 @@ public class PmsProductServiceImpl implements PmsProductService {
     @Autowired
     private PmsProductPriceRepository pmsProductPriceRepository;
     @Autowired
+    private PmsProductFlashSaleRepository pmsProductFlashSaleRepository;
+    @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private MinioService minioService;
 
     @Override
-    public void create(PmsProductRequest pmsProductRequest) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void create(PmsProductRequest pmsProductRequest, MultipartFile picture) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         PmsProduct pmsProduct = convertToEntity(pmsProductRequest);
         ProductUtil.findAndInsert(pmsProduct, pmsProductBrandRepository, PmsProduct.class.getMethod("setPmsProductBrand", PmsProductBrand.class), pmsProductRequest.getPmsProductBrand());
         ProductUtil.findAndInsert(pmsProduct, pmsProductCategoryRepository, PmsProduct.class.getMethod("setPmsProductCategory", List.class), pmsProductRequest.getPmsProductCategory());
         ProductUtil.findAndInsert(pmsProduct, pmsProductServiceRepository, PmsProduct.class.getMethod("setPmsProductServices", List.class), pmsProductRequest.getPmsProductServices());
         ProductUtil.findAndInsert(pmsProduct, pmsProductFreightRepository, PmsProduct.class.getMethod("setPmsProductFreight", List.class), pmsProductRequest.getPmsProductFreight());
         ProductUtil.findAndInsert(pmsProduct, pmsProductPriceRepository, PmsProduct.class.getMethod("setPmsProductPrice", List.class), pmsProductRequest.getPmsProductPrice());
+
+        String url = minioService.uploadImage(picture);
+        pmsProduct.setPic(url);
 
         pmsProductRepository.save(pmsProduct);
     }

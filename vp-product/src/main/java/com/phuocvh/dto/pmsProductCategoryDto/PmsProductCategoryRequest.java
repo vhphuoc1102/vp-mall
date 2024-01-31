@@ -12,8 +12,7 @@ public class PmsProductCategoryRequest {
     private String name;
     private Integer level;
     private Integer productCount;
-    private Integer navStatus;
-    private Integer showStatus;
+    private Integer status;
     private String icon;
     private String keywords;
     private String description;
